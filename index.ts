@@ -59,3 +59,21 @@ let userRole: null;
 // userRole = null;
 
 // console.log(userRole);
+
+////////////////////////////////////
+
+// Bigint
+
+const safeInt = Number.MAX_SAFE_INTEGER;
+console.log(safeInt);
+
+const safeIntPlusOne = safeInt + 1;
+const safeIntPlusTwo = safeInt + 2;
+
+console.log(safeIntPlusOne, safeIntPlusTwo);
+
+let bigInt1: bigint = BigInt(safeIntPlusTwo);
+
+let bigInt2: bigint = 232322n;
+
+console.log(bigInt1, bigInt2);
