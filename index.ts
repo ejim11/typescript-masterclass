@@ -45,3 +45,17 @@ const numOfLetters = 62;
 let isStudent: boolean = true;
 
 const alwaysStudent = true;
+
+//////////////////////////////////////
+
+// undefined
+
+let user: undefined;
+
+// console.log(user);
+
+let userRole: null;
+
+// userRole = null;
+
+// console.log(userRole);

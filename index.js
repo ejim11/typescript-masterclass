@@ -32,3 +32,10 @@ const numOfLetters = 62;
 // booleans
 let isStudent = true;
 const alwaysStudent = true;
+//////////////////////////////////////
+// undefined
+let user;
+// console.log(user);
+let userRole;
+// userRole = null;
+// console.log(userRole);
