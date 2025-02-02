@@ -20,3 +20,15 @@ function addNumbers(a, b) {
 // console.log(addNumbers(2, 3));
 // console.log(addNumbers(3932, 3));
 /////////////////////////////////////////
+// Either through annotation or inference
+// strings
+var firstname = "john";
+let automobile = "bmw";
+const city = "new York";
+// numbers
+var age = 56;
+let day = 23;
+const numOfLetters = 62;
+// booleans
+let isStudent = true;
+const alwaysStudent = true;
