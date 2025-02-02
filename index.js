@@ -42,10 +42,22 @@ let userRole;
 ////////////////////////////////////
 // Bigint
 const safeInt = Number.MAX_SAFE_INTEGER;
-console.log(safeInt);
+// console.log(safeInt);
 const safeIntPlusOne = safeInt + 1;
 const safeIntPlusTwo = safeInt + 2;
-console.log(safeIntPlusOne, safeIntPlusTwo);
+// console.log(safeIntPlusOne, safeIntPlusTwo);
 let bigInt1 = BigInt(safeIntPlusTwo);
 let bigInt2 = 232322n;
-console.log(bigInt1, bigInt2);
+// console.log(bigInt1, bigInt2);
+/////////////////////////////////////////
+// symbols
+let id = Symbol(1234);
+let alphabeticId = Symbol("id");
+const users = {
+    [id]: "1232",
+    name: "John",
+    getId() {
+        return this[id];
+    },
+};
+// console.log(users.getId());
