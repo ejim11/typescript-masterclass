@@ -93,3 +93,75 @@ const users = {
 };
 
 // console.log(users.getId());
+
+// type systems
+// unkwnown type
+
+function multiplyByTwo(number: unknown) {
+  if (typeof number === "number") {
+    return number * 2;
+  }
+
+  return "Please provide a number";
+}
+
+// console.log(multiplyByTwo(3));
+// console.log(multiplyByTwo("4"));
+
+// Type aliases
+// Declaration
+type CustomString = string;
+
+// let user: CustomString = "John";
+
+// Annotation - assigning a type
+let order: string = "0";
+
+// inference
+function addNumber(a: number, b: number) {
+  return a + b;
+}
+
+const finalResult = addNumber(4, 2);
+
+// Union types
+
+type StringOrNumber = string | number;
+
+let strOrNum: StringOrNumber = "dfknbfi";
+
+strOrNum = 9;
+
+// Quick conditional types
+type CustomDate = Date;
+
+type TrueString = CustomString extends string ? true : false;
+
+type ConditionalNumber = CustomDate extends Date ? number : string;
+
+type DateAssignment = CustomDate extends Date ? Date : undefined;
+
+// never
+
+const throwError = (msg: string) => {
+  throw new Error(msg);
+};
+
+// type casting
+let owner = <any>"Jim";
+
+let owner2 = "Jim" as any;
+
+let owner3 = {
+  email: "x@gmail.com",
+  name: "John",
+};
+
+type User = {
+  email: string;
+  name: string;
+};
+
+const fetchUser = () => {
+  return owner3 as User;
+};

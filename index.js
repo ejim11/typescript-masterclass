@@ -61,3 +61,35 @@ const users = {
     },
 };
 // console.log(users.getId());
+// type systems
+// unkwnown type
+function multiplyByTwo(number) {
+    if (typeof number === "number") {
+        return number * 2;
+    }
+    return "Please provide a number";
+}
+// let user: CustomString = "John";
+// Annotation - assigning a type
+let order = "0";
+// inference
+function addNumber(a, b) {
+    return a + b;
+}
+const finalResult = addNumber(4, 2);
+let strOrNum = "dfknbfi";
+strOrNum = 9;
+// never
+const throwError = (msg) => {
+    throw new Error(msg);
+};
+// type casting
+let owner = "Jim";
+let owner2 = "Jim";
+let owner3 = {
+    email: "x@gmail.com",
+    name: "John",
+};
+const fetchUser = () => {
+    return owner3;
+};
