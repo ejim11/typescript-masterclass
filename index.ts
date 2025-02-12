@@ -165,3 +165,169 @@ type User = {
 const fetchUser = () => {
   return owner3 as User;
 };
+
+// type aliases for objects
+
+type Author = {
+  name: string;
+  age: number;
+  email: string;
+  readonly type: "human" | "ai";
+};
+
+// readonly props once declared cannot be changed.
+
+// index signatures
+
+type AwardDetail = {
+  name: string;
+  date: Date;
+};
+
+type Awards = {
+  [keyof: string]: AwardDetail;
+};
+
+type Post = {
+  title: string;
+  content: string;
+  date: Date;
+  author: Author;
+  awards: Awards;
+  category?: string;
+};
+
+let post: Post = {
+  title: "This is a post",
+  content: "content",
+  date: new Date(),
+  author: {
+    name: "John",
+    age: 4,
+    email: "example@onu.com",
+    type: "human",
+  },
+  awards: {
+    web: {
+      name: "web",
+      date: new Date(),
+    },
+    web3: {
+      name: "web3",
+      date: new Date(),
+    },
+  },
+};
+
+let post2: Post = {
+  title: "This is a post",
+  content: "content",
+  date: new Date(),
+  author: {
+    name: "John",
+    age: 4,
+    email: "example@onu.com",
+    type: "ai",
+  },
+  awards: {
+    web: {
+      name: "web",
+      date: new Date(),
+    },
+    web3: {
+      name: "web3",
+      date: new Date(),
+    },
+  },
+};
+
+// union types with objects
+type Dog = {
+  name: string;
+  barks: boolean;
+  wags: boolean;
+};
+
+type Cat = {
+  name: string;
+  purrs: boolean;
+};
+
+type DogAndCatUnion = Dog | Cat;
+
+const dog: DogAndCatUnion = {
+  name: "buddy",
+  barks: true,
+  wags: false,
+};
+
+const cat: DogAndCatUnion = {
+  name: "peller",
+  purrs: true,
+};
+
+const hybrid: DogAndCatUnion = {
+  name: "hoe",
+  barks: true,
+  wags: false,
+  purrs: true,
+};
+
+// Discriminating unions
+
+type NetworkLoadingState = {
+  state: "loading";
+};
+
+type NetworkFailedState = {
+  state: "failed";
+  code: number;
+};
+
+type NetworkSuccessState = {
+  state: "success";
+  response: {
+    title: string;
+    durations: number;
+    summary: string;
+  };
+};
+
+type NetworkState =
+  | NetworkLoadingState
+  | NetworkFailedState
+  | NetworkSuccessState;
+
+function logger(state: NetworkState) {
+  switch (state.state) {
+    case "loading":
+      return "loading...";
+    case "failed":
+      return `Error: ${state.code}`;
+
+    case "success":
+      return `Success: ${state.response.title}`;
+  }
+}
+
+type Cat1 = {
+  name: string;
+  purrs: boolean;
+  color: string;
+};
+
+type Dog1 = {
+  name: string;
+  barks: boolean;
+  color: string;
+};
+
+// intersection types
+type HybridAnimal = Cat1 & Dog1;
+
+const hybridAnimal: HybridAnimal = {
+  name: "Buffy",
+  color: "black",
+  purrs: true,
+  barks: false,
+};

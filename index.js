@@ -93,3 +93,76 @@ let owner3 = {
 const fetchUser = () => {
     return owner3;
 };
+let post = {
+    title: "This is a post",
+    content: "content",
+    date: new Date(),
+    author: {
+        name: "John",
+        age: 4,
+        email: "example@onu.com",
+        type: "human",
+    },
+    awards: {
+        web: {
+            name: "web",
+            date: new Date(),
+        },
+        web3: {
+            name: "web3",
+            date: new Date(),
+        },
+    },
+};
+let post2 = {
+    title: "This is a post",
+    content: "content",
+    date: new Date(),
+    author: {
+        name: "John",
+        age: 4,
+        email: "example@onu.com",
+        type: "ai",
+    },
+    awards: {
+        web: {
+            name: "web",
+            date: new Date(),
+        },
+        web3: {
+            name: "web3",
+            date: new Date(),
+        },
+    },
+};
+const dog = {
+    name: "buddy",
+    barks: true,
+    wags: false,
+};
+const cat = {
+    name: "peller",
+    purrs: true,
+};
+const hybrid = {
+    name: "hoe",
+    barks: true,
+    wags: false,
+    purrs: true,
+};
+function logger(state) {
+    switch (state.state) {
+        case "loading":
+            return "loading...";
+        case "failed":
+            return `Error: ${state.code}`;
+        case "success":
+            return `Success: ${state.response.title}`;
+    }
+}
+const hybridAnimal = {
+    name: "Buffy",
+    color: "black",
+    purrs: true,
+    barks: false,
+};
