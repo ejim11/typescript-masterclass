@@ -331,3 +331,124 @@ const hybridAnimal: HybridAnimal = {
   purrs: true,
   barks: false,
 };
+
+// Arrays
+
+let nums: number[] = [3, 2];
+
+let b: Array<string> = ["a", "d"];
+
+let c: (string | number)[] = [1, "d"];
+
+type Airplane = {
+  model: string;
+  flightNumber: number;
+};
+
+type Airplanes = Airplane[];
+
+const airplanes: Airplanes = [{ model: "airbus", flightNumber: 3223 }];
+
+// tuples
+
+const person: [string, string, number] = ["joe", "james", 8];
+
+type User1 = [string, string, number, string?];
+
+const user1: User1 = ["joe", "james", 5];
+
+type listOfStudents = [number, boolean, ...string[]];
+
+const passingStudents: listOfStudents = [3, true, "adre", "sete", "mark"];
+
+type StringsBooleanNumbers = [string, ...boolean[], number];
+
+let s: StringsBooleanNumbers = ["", true, false, 3];
+
+// readony arrays and tuples
+
+let numsRd: readonly number[] = [2, 3];
+
+type ReadOnlyTuple = readonly [string, string, number];
+
+let per: ReadOnlyTuple = ["ejim", "james", 34];
+
+type a = Readonly<string[]>;
+
+type b = ReadonlyArray<string | number>;
+
+type c = Readonly<[string, string, number]>;
+
+// enums
+
+enum Direction {
+  Up = "up", //0
+  Down = "down",
+  Left = "left",
+  Right = "right",
+}
+
+// console.log(Direction.Up);
+
+enum Roles {
+  ADMIN = "admin",
+  USER = "user",
+}
+
+type Person1 = {
+  name: string;
+  role: Roles;
+};
+
+const pers1: Person1 = {
+  name: "person",
+  role: Roles.ADMIN,
+};
+
+// if you don't want the enums to be compiled to js then you can use the const keyword
+
+const enum EDirections {
+  Up,
+  Down,
+}
+
+// casting an obj as a const converts the props to readonly, making it like an enum
+
+const ODirection = {
+  up: 0,
+  down: 1,
+} as const;
+
+// computed enums
+
+enum AccessPermissions {
+  None,
+  Read,
+  Write,
+  ReadWrite = Read + Write,
+  Delete,
+  All = ReadWrite | Delete,
+}
+
+// enums as union and types
+
+enum ShapeKind {
+  Circle = "circle",
+  Square = "square",
+}
+
+type Cirle = {
+  kind: ShapeKind.Circle;
+  radius: number;
+};
+
+type Square = {
+  kind: ShapeKind.Square;
+  sideLength: number;
+};
+
+let circle: Cirle = { radius: 23, kind: ShapeKind.Circle };
+
+// (function printShap(shape: ShapeKind) {
+//   console.log(shape);
+// })(ShapeKind.Circle);

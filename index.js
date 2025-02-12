@@ -166,3 +166,59 @@ const hybridAnimal = {
     purrs: true,
     barks: false,
 };
+// Arrays
+let nums = [3, 2];
+let b = ["a", "d"];
+let c = [1, "d"];
+const airplanes = [{ model: "airbus", flightNumber: 3223 }];
+// tuples
+const person = ["joe", "james", 8];
+const user1 = ["joe", "james", 5];
+const passingStudents = [3, true, "adre", "sete", "mark"];
+let s = ["", true, false, 3];
+// readony arrays and tuples
+let numsRd = [2, 3];
+let per = ["ejim", "james", 34];
+// enums
+var Direction;
+(function (Direction) {
+    Direction["Up"] = "up";
+    Direction["Down"] = "down";
+    Direction["Left"] = "left";
+    Direction["Right"] = "right";
+})(Direction || (Direction = {}));
+// console.log(Direction.Up);
+var Roles;
+(function (Roles) {
+    Roles["ADMIN"] = "admin";
+    Roles["USER"] = "user";
+})(Roles || (Roles = {}));
+const pers1 = {
+    name: "person",
+    role: Roles.ADMIN,
+};
+// casting an obj as a const converts the props to readonly, making it like an enum
+const ODirection = {
+    up: 0,
+    down: 1,
+};
+// computed enums
+var AccessPermissions;
+(function (AccessPermissions) {
+    AccessPermissions[AccessPermissions["None"] = 0] = "None";
+    AccessPermissions[AccessPermissions["Read"] = 1] = "Read";
+    AccessPermissions[AccessPermissions["Write"] = 2] = "Write";
+    AccessPermissions[AccessPermissions["ReadWrite"] = 3] = "ReadWrite";
+    AccessPermissions[AccessPermissions["Delete"] = 4] = "Delete";
+    AccessPermissions[AccessPermissions["All"] = 7] = "All";
+})(AccessPermissions || (AccessPermissions = {}));
+// enums as union and types
+var ShapeKind;
+(function (ShapeKind) {
+    ShapeKind["Circle"] = "circle";
+    ShapeKind["Square"] = "square";
+})(ShapeKind || (ShapeKind = {}));
+let circle = { radius: 23, kind: ShapeKind.Circle };
+// (function printShap(shape: ShapeKind) {
+//   console.log(shape);
+// })(ShapeKind.Circle);
