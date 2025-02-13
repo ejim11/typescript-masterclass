@@ -222,3 +222,24 @@ let circle = { radius: 23, kind: ShapeKind.Circle };
 // (function printShap(shape: ShapeKind) {
 //   console.log(shape);
 // })(ShapeKind.Circle);
+// Functions
+var AgeUnit;
+(function (AgeUnit) {
+    AgeUnit["Years"] = "years";
+    AgeUnit["Month"] = "month";
+})(AgeUnit || (AgeUnit = {}));
+function convertAgeToMonth(person) {
+    if (person.ageUnit === AgeUnit.Years) {
+        person.age = person.age * 12;
+        person.ageUnit = AgeUnit.Month;
+    }
+    return person;
+}
+console.log(convertAgeToMonth({
+    name: "John",
+    age: 53,
+    ageUnit: AgeUnit.Years,
+    greet: (text) => text,
+}).greet("Hello world"));
+// void and never
+function writeToDatabase(value) { }

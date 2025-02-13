@@ -452,3 +452,37 @@ let circle: Cirle = { radius: 23, kind: ShapeKind.Circle };
 // (function printShap(shape: ShapeKind) {
 //   console.log(shape);
 // })(ShapeKind.Circle);
+
+// Functions
+enum AgeUnit {
+  Years = "years",
+  Month = "month",
+}
+
+type Person = {
+  name: string;
+  age: number;
+  ageUnit: AgeUnit;
+  greet: (greeting: string) => string;
+};
+
+function convertAgeToMonth(person: Person): Person {
+  if (person.ageUnit === AgeUnit.Years) {
+    person.age = person.age * 12;
+    person.ageUnit = AgeUnit.Month;
+  }
+
+  return person;
+}
+
+console.log(
+  convertAgeToMonth({
+    name: "John",
+    age: 53,
+    ageUnit: AgeUnit.Years,
+    greet: (text: string) => text,
+  }).greet("Hello world")
+);
+
+// void and never
+function writeToDatabase(value: string) {}
