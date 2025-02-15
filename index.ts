@@ -485,4 +485,106 @@ console.log(
 );
 
 // void and never
-function writeToDatabase(value: string) {}
+function writeToDatabase(value: string): void {
+  console.log("Writing to database", value);
+}
+
+function throwErr(message: string): never {
+  throw new Error(message);
+}
+
+// async functions
+
+async function returnString(value: string): Promise<string> {
+  return Promise.resolve(value);
+}
+
+type Gamer = {
+  name: string;
+  age: number;
+};
+
+async function findUser(id: number): Promise<Gamer> {
+  return Promise.resolve({ name: "john", age: 3 });
+}
+
+// rest parameters
+function multiplyBy(by: number, ...numbers: number[]): number[] {
+  return numbers.map((num) => num * by);
+}
+
+// args
+const args = [4, 3] as const;
+
+const angle = Math.atan2(...args);
+
+const args1: [number, number] = [5, 3];
+
+const angle1 = Math.atan2(...args1);
+
+// parameter destructuring
+
+type Numbers = {
+  a: number;
+  b: number;
+  c: number;
+};
+
+let numbers: Numbers = {
+  a: 3,
+  b: 3,
+  c: 1,
+};
+
+function sum({ a, b, c }: Numbers) {
+  return a + b + c;
+}
+
+console.log(sum(numbers));
+
+// FUNCTION OVERLOADING
+
+type Reservation = {
+  departureDate: Date;
+  returnDate?: Date;
+  departingFrom: string;
+  destination: string;
+};
+
+type Reserve = {
+  (
+    departureDate: Date,
+    returnDate: Date,
+    departingFrom: string,
+    destination: string
+  ): Reservation | never;
+  (departureDate: Date, departingFrom: string, destination: string):
+    | Reservation
+    | never;
+};
+
+const reserve: Reserve = (
+  departureDate,
+  returnDateOrDepartingFrom: Date | string,
+  departingFromOrDestination: string,
+  destination?: string
+) => {
+  if (returnDateOrDepartingFrom instanceof Date && destination) {
+    return {
+      departureDate,
+      returnDate: returnDateOrDepartingFrom,
+      departingFrom: departingFromOrDestination,
+      destination,
+    };
+  } else if (typeof returnDateOrDepartingFrom === "string") {
+    return {
+      departureDate,
+      departingFrom: returnDateOrDepartingFrom,
+      destination: departingFromOrDestination,
+    };
+  }
+
+  throw new Error("Please provide details");
+};
+
+console.log(reserve(new Date(), "New york", "washington"));

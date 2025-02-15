@@ -242,4 +242,53 @@ console.log(convertAgeToMonth({
     greet: (text) => text,
 }).greet("Hello world"));
 // void and never
-function writeToDatabase(value) { }
+function writeToDatabase(value) {
+    console.log("Writing to database", value);
+}
+function throwErr(message) {
+    throw new Error(message);
+}
+// async functions
+async function returnString(value) {
+    return Promise.resolve(value);
+}
+async function findUser(id) {
+    return Promise.resolve({ name: "john", age: 3 });
+}
+// rest parameters
+function multiplyBy(by, ...numbers) {
+    return numbers.map((num) => num * by);
+}
+// args
+const args = [4, 3];
+const angle = Math.atan2(...args);
+const args1 = [5, 3];
+const angle1 = Math.atan2(...args1);
+let numbers = {
+    a: 3,
+    b: 3,
+    c: 1,
+};
+function sum({ a, b, c }) {
+    return a + b + c;
+}
+console.log(sum(numbers));
+const reserve = (departureDate, returnDateOrDepartingFrom, departingFromOrDestination, destination) => {
+    if (returnDateOrDepartingFrom instanceof Date && destination) {
+        return {
+            departureDate,
+            returnDate: returnDateOrDepartingFrom,
+            departingFrom: departingFromOrDestination,
+            destination,
+        };
+    }
+    else if (typeof returnDateOrDepartingFrom === "string") {
+        return {
+            departureDate,
+            departingFrom: returnDateOrDepartingFrom,
+            destination: departingFromOrDestination,
+        };
+    }
+    throw new Error("Please provide details");
+};
+console.log(reserve(new Date(), "New york", "washington"));
