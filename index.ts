@@ -587,4 +587,213 @@ const reserve: Reserve = (
   throw new Error("Please provide details");
 };
 
-console.log(reserve(new Date(), "New york", "washington"));
+// console.log(reserve(new Date(), "New york", "washington"));
+
+// Generics
+function returnParams<Type>(param: Type): Type {
+  return param;
+}
+const return1 = returnParams<string>("ejim");
+
+const myParam: <T>(param: T) => T = (param) => param;
+
+const myParams2 = function <U>(param: U): U {
+  return param;
+};
+
+type ObjectType = {
+  myParam: <T, C>(param: T, param2: C) => T | C;
+};
+
+type myParam = <L>(param: L) => L;
+
+type GetFirstElement = <T>(arr: T[]) => T;
+
+const getFirstElement: GetFirstElement = (arr) => {
+  return arr[0];
+};
+
+const numsArr = [2, 3, 4, 3, 2, 4, 5, 65, 5, 65];
+
+const strArr = ["d", "f", "a"];
+
+// console.log(getFirstElement(numsArr));
+// console.log(getFirstElement(strArr));
+
+// writing seperate functions for each of the types
+type FirstElement<T> = (arr: T[]) => T;
+
+const firstElementStr: FirstElement<string> = (arr) => {
+  return arr[0];
+};
+
+const firstElementNum: FirstElement<number> = (arr) => {
+  return arr[0];
+};
+
+// Generics and constraints with arrays
+type HasLength = {
+  length: number;
+};
+
+function logLength<T extends HasLength>(item: T): void {
+  console.log("length: ", item.length);
+}
+
+// console.log(logLength([3, 4, 5]));
+
+// console.log(logLength("4"));
+
+// generics with numbers
+
+type keyValuePair<K, V> = {
+  key: K;
+  value: V;
+};
+
+const stringNumberPair: keyValuePair<string, number> = {
+  key: "ejim",
+  value: 55,
+};
+
+const numberArrPair: keyValuePair<number, string[]> = {
+  key: 242,
+  value: ["d"],
+};
+
+type HasId = {
+  id: number;
+};
+
+function printId<T extends HasId>(obj: T): void {
+  console.log(obj.id);
+}
+
+// keyof operator
+
+type Events = {
+  id: number;
+  date: Date;
+  type: "indoor" | "outdoor";
+};
+
+type UnionOfKeysOfEvents = keyof Events;
+
+let idOfEvent: UnionOfKeysOfEvents = "id";
+
+type Numeric = {
+  [key: number]: string;
+};
+
+type NumericKeyOf = keyof Numeric;
+
+type NumberAndString = {
+  [key: string]: string;
+};
+
+type NumberAndStringKeyOf = keyof NumberAndString;
+
+let stringObject: NumberAndString = {
+  1: "",
+};
+
+type Persons = {
+  name: string;
+  age: number;
+  address: string;
+};
+
+type PartialPersons = {
+  [K in keyof Persons]?: Persons[K];
+};
+
+let partial: PartialPersons = {
+  name: "John",
+};
+
+// Generic default values
+
+async function fetchData<T>(url: string): Promise<T> {
+  const response = await fetch(url);
+
+  const data = await response.json();
+
+  return data;
+}
+
+async function fetchDefault() {
+  const data = await fetchData("https://jsonplaceholder.typicode.com/posts/1");
+  // console.log(data);
+}
+
+// fetchDefault();
+
+type Posts = {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+};
+
+async function fetchPost() {
+  const data = await fetchData<Posts>(
+    "https://jsonplaceholder.typicode.com/posts/1"
+  );
+  console.log(data);
+}
+
+type Filter = {
+  (array: number[], predicate: (item: number) => boolean): number[];
+  (array: string[], predicate: (item: string) => boolean): string[];
+  (array: object[], predicate: (item: object) => boolean): object[];
+};
+
+// implementing a polymorphic function
+const filter = <T>(array: T[], predicate: (item: T) => boolean): T[] => {
+  let result: T[] = [];
+
+  for (let i = 0; i < array.length; i++) {
+    if (predicate(array[i])) {
+      result.push(array[i]);
+    }
+  }
+  return result;
+};
+
+let numss = [1, 2, 34, 5, 6];
+
+function predicate(item: number) {
+  return item > 7;
+}
+
+let animals = ["cat", "dog", " rat"];
+
+function filterCat(item: string) {
+  return item === "cat";
+}
+
+console.log(filter(numss, predicate));
+
+console.log(filter(animals, filterCat));
+
+const mapFunc = <T, U>(array: T[], func: (item: T) => U): (U | T)[] => {
+  if (array.length === 0) {
+    return array;
+  }
+
+  let result: U[] = [];
+
+  for (let i = 0; i < array.length; i++) {
+    result.push(func(array[i]));
+  }
+
+  return result;
+};
+
+let numbersArr = [1, 2, 3, 4, 5, 6, 7, 8];
+
+console.log(
+  mapFunc(numbersArr, (num) => {
+    return num.toString();
+  })
+);

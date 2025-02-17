@@ -291,4 +291,93 @@ const reserve = (departureDate, returnDateOrDepartingFrom, departingFromOrDestin
     }
     throw new Error("Please provide details");
 };
-console.log(reserve(new Date(), "New york", "washington"));
+// console.log(reserve(new Date(), "New york", "washington"));
+// Generics
+function returnParams(param) {
+    return param;
+}
+const return1 = returnParams("ejim");
+const myParam = (param) => param;
+const myParams2 = function (param) {
+    return param;
+};
+const getFirstElement = (arr) => {
+    return arr[0];
+};
+const numsArr = [2, 3, 4, 3, 2, 4, 5, 65, 5, 65];
+const strArr = ["d", "f", "a"];
+const firstElementStr = (arr) => {
+    return arr[0];
+};
+const firstElementNum = (arr) => {
+    return arr[0];
+};
+function logLength(item) {
+    console.log("length: ", item.length);
+}
+const stringNumberPair = {
+    key: "ejim",
+    value: 55,
+};
+const numberArrPair = {
+    key: 242,
+    value: ["d"],
+};
+function printId(obj) {
+    console.log(obj.id);
+}
+let idOfEvent = "id";
+let stringObject = {
+    1: "",
+};
+let partial = {
+    name: "John",
+};
+// Generic default values
+async function fetchData(url) {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+async function fetchDefault() {
+    const data = await fetchData("https://jsonplaceholder.typicode.com/posts/1");
+    // console.log(data);
+}
+async function fetchPost() {
+    const data = await fetchData("https://jsonplaceholder.typicode.com/posts/1");
+    console.log(data);
+}
+// implementing a polymorphic function
+const filter = (array, predicate) => {
+    let result = [];
+    for (let i = 0; i < array.length; i++) {
+        if (predicate(array[i])) {
+            result.push(array[i]);
+        }
+    }
+    return result;
+};
+let numss = [1, 2, 34, 5, 6];
+function predicate(item) {
+    return item > 7;
+}
+let animals = ["cat", "dog", " rat"];
+function filterCat(item) {
+    return item === "cat";
+}
+console.log(filter(numss, predicate));
+console.log(filter(animals, filterCat));
+const mapFunc = (array, func) => {
+    if (array.length === 0) {
+        return array;
+    }
+    let result = [];
+    for (let i = 0; i < array.length; i++) {
+        result.push(func(array[i]));
+    }
+    return result;
+};
+let numbersArr = [1, 2, 3, 4, 5, 6, 7, 8];
+console.log(mapFunc(numbersArr, (num) => {
+    return num.toString();
+}));
