@@ -381,3 +381,27 @@ let numbersArr = [1, 2, 3, 4, 5, 6, 7, 8];
 console.log(mapFunc(numbersArr, (num) => {
     return num.toString();
 }));
+// Classes
+class UserClass {
+    constructor(name, email, lastname) {
+        this.name = name;
+        this.email = email;
+        this.lastname = lastname;
+    }
+    greet(msg) {
+        return `Hello ${this.name}, ${msg}`;
+    }
+}
+const userInstance = new UserClass("Ejim Favour", "favour@email.com");
+userInstance.lastname = "ernest";
+// userInstance.email = "";
+console.log(userInstance.greet("Your account has been created successfully!"));
+// Inheritance
+class AdminClass extends UserClass {
+    constructor() {
+        super(...arguments);
+        this.isAdmin = true;
+    }
+}
+const admin = new AdminClass("Mark", "mark@gmail.com");
+console.log(admin);

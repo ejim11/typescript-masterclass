@@ -749,7 +749,10 @@ type Filter = {
 };
 
 // implementing a polymorphic function
-const filter = <T>(array: T[], predicate: (item: T) => boolean): T[] => {
+const filter: Filter = <T>(
+  array: T[],
+  predicate: (item: T) => boolean
+): T[] => {
   let result: T[] = [];
 
   for (let i = 0; i < array.length; i++) {
@@ -797,3 +800,43 @@ console.log(
     return num.toString();
   })
 );
+
+// Classes
+
+class UserClass {
+  name: string;
+  readonly email: string;
+
+  lastname?: string;
+
+  constructor(name: string, email: string, lastname?: string) {
+    this.name = name;
+    this.email = email;
+    this.lastname = lastname;
+  }
+
+  greet(msg: string) {
+    return `Hello ${this.name}, ${msg}`;
+  }
+}
+
+const userInstance: UserClass = new UserClass(
+  "Ejim Favour",
+  "favour@email.com"
+);
+
+userInstance.lastname = "ernest";
+
+// userInstance.email = "";
+
+console.log(userInstance.greet("Your account has been created successfully!"));
+
+// Inheritance
+
+class AdminClass extends UserClass {
+  isAdmin: boolean = true;
+}
+
+const admin = new AdminClass("Mark", "mark@gmail.com");
+
+console.log(admin);
