@@ -398,10 +398,35 @@ userInstance.lastname = "ernest";
 console.log(userInstance.greet("Your account has been created successfully!"));
 // Inheritance
 class AdminClass extends UserClass {
-    constructor() {
-        super(...arguments);
+    constructor(usersReporting, name, email, lastname) {
+        super(name, email, lastname);
         this.isAdmin = true;
+        this.usersReporting = usersReporting;
     }
 }
-const admin = new AdminClass("Mark", "mark@gmail.com");
+const admin = new AdminClass(50, "Mark", "mark@gmail.com");
 console.log(admin);
+class Book {
+    constructor(title, author, ISBN, yearPublished) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+        if (yearPublished)
+            this.yearPublished = yearPublished;
+    }
+}
+const book1 = new Book("Mars: Our new home", "Jimmy xd", "joi94039", 2049);
+function logBookDetails(book) {
+    console.log(book);
+}
+logBookDetails(book1);
+class Ebook extends Book {
+    constructor(fileSize, format, title, author, ISBN, yearPublished) {
+        super(title, author, ISBN, yearPublished);
+        this.fileSize = fileSize;
+        this.format = format;
+    }
+}
+const ebook1 = new Ebook(2, "pdf", "Space and time", "Ernesto", "inei493");
+console.log(ebook1);
+// Access modifiers

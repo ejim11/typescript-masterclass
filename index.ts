@@ -835,8 +835,71 @@ console.log(userInstance.greet("Your account has been created successfully!"));
 
 class AdminClass extends UserClass {
   isAdmin: boolean = true;
+  usersReporting: number;
+
+  constructor(
+    usersReporting: number,
+    name: string,
+    email: string,
+    lastname?: string
+  ) {
+    super(name, email, lastname);
+    this.usersReporting = usersReporting;
+  }
 }
 
-const admin = new AdminClass("Mark", "mark@gmail.com");
+const admin = new AdminClass(50, "Mark", "mark@gmail.com");
 
 console.log(admin);
+
+class Book {
+  title: string;
+  author: string;
+  yearPublished?: number;
+  readonly ISBN: string;
+
+  constructor(
+    title: string,
+    author: string,
+    ISBN: string,
+    yearPublished?: number
+  ) {
+    this.title = title;
+    this.author = author;
+    this.ISBN = ISBN;
+
+    if (yearPublished) this.yearPublished = yearPublished;
+  }
+}
+
+const book1 = new Book("Mars: Our new home", "Jimmy xd", "joi94039", 2049);
+
+function logBookDetails(book: Book) {
+  console.log(book);
+}
+
+logBookDetails(book1);
+
+class Ebook extends Book {
+  fileSize: number;
+  format: string;
+
+  constructor(
+    fileSize: number,
+    format: string,
+    title: string,
+    author: string,
+    ISBN: string,
+    yearPublished?: number
+  ) {
+    super(title, author, ISBN, yearPublished);
+    this.fileSize = fileSize;
+    this.format = format;
+  }
+}
+
+const ebook1 = new Ebook(2, "pdf", "Space and time", "Ernesto", "inei493");
+
+console.log(ebook1);
+
+// Access modifiers
