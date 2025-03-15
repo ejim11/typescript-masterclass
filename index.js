@@ -430,3 +430,187 @@ class Ebook extends Book {
 const ebook1 = new Ebook(2, "pdf", "Space and time", "Ernesto", "inei493");
 console.log(ebook1);
 // Access modifiers
+// public - anywhere
+// proctected - class and child class
+// private - class
+class Device {
+    // shorthand for initializing a property
+    constructor(name, ismNumber) {
+        this.name = name;
+        this.ISMNumber = ismNumber;
+    }
+    getName() {
+        return this.name;
+    }
+}
+class Laptop extends Device {
+    constructor(name, ismNumber) {
+        super(name, ismNumber);
+    }
+    // overriding methods in child classes
+    getName() {
+        return `Hello, ${this.name}. I am admin`;
+    }
+}
+const device = new Device("Asus", 92999);
+const laptop = new Laptop("Hp", 45);
+// More control over classes
+class SenPerson {
+    constructor(firstName, lastName // public age: number
+    ) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        // wrong method
+        // if (age > 200 || age < 0) {
+        //   throw new Error("The age must be within the age range 0- 200");
+        // }
+    }
+    // setter or mutator
+    set age(age) {
+        if (age > 200 || age < 0) {
+            throw new Error("The age must be within the age range 0- 200");
+        }
+        this._age = age;
+    }
+    get age() {
+        if (this._age === undefined) {
+            throw new Error("Age is not defined");
+        }
+        return this._age;
+    }
+    get fullname() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+}
+const john = new SenPerson("John", "Doe");
+// john.age = 34;
+// console.log(john.age);
+// console.log(john.fullname());
+const loafInitialCount = () => {
+    return 10;
+};
+// Static members
+// static members can only be accessed by the class. They belong to the class and not its instance
+class Counter {
+    static increment() {
+        Counter.count++;
+    }
+}
+Counter.count = 0;
+// static blocks are used to set the values of static properties, it can also be dependent on any external values within your app
+(() => {
+    console.log("initializing the counter class");
+    Counter.count = loafInitialCount();
+})();
+Counter.increment();
+console.log(Counter.count);
+// Generics in classes
+class Box {
+    constructor(value) {
+        this._value = value;
+    }
+    get value() {
+        return this._value;
+    }
+    set value(newValue) {
+        this._value = newValue;
+    }
+}
+const numberBox = new Box(124);
+numberBox.value = 222;
+class Repository {
+    constructor() {
+        this._items = [];
+    }
+    add(item) {
+        this._items.push(item);
+    }
+    getById(id) {
+        return this._items.find((item) => item.id === id);
+    }
+    getAll() {
+        return this._items;
+    }
+    removeById(id) {
+        this._items = this._items.filter((item) => item.id !== id);
+    }
+}
+const usersRepo = new Repository();
+const booksRepo = new Repository();
+usersRepo.add({
+    id: 2,
+    name: "john",
+    email: "doe",
+});
+booksRepo.add({
+    id: 0,
+    title: "",
+    ISBN: 0,
+});
+function TimeStamp(Base) {
+    return class extends Base {
+        constructor() {
+            super(...arguments);
+            this.timestamp = new Date();
+        }
+        getTimestamp() {
+            return this.timestamp;
+        }
+    };
+}
+class MainUser {
+    constructor(name) {
+        this.name = name;
+    }
+}
+class UserWithTimestamp extends TimeStamp(MainUser) {
+    constructor(name, age) {
+        super(name);
+        this.age = age;
+    }
+    displayInfo() {
+        console.log(`${this.name},  ${this.age} , ${this.getTimestamp()}`);
+    }
+}
+const newUserWithTimestamp = new UserWithTimestamp("Ejim", 40);
+newUserWithTimestamp.displayInfo();
+// simple employee management system
+class Employee {
+    constructor(name, age, _salary, id) {
+        this.name = name;
+        this.age = age;
+        this._salary = _salary;
+        this.id = id;
+    }
+    get salary() {
+        return this._salary;
+    }
+    set salary(newSalary) {
+        if (newSalary) {
+            this._salary = newSalary;
+        }
+        else {
+            throw new Error("Salary must be positive number");
+        }
+    }
+    static getCompanyName() {
+        return Employee.companyName;
+    }
+    getDetails() {
+        return `Name: ${this.name},  Age: ${this.age}, Salary: ${this.salary}`;
+    }
+}
+Employee.companyName = "Tech Solutions Inc";
+class Manager extends Employee {
+    constructor(name, age, salary, id, department) {
+        super(name, age, salary, id);
+        this.department = department;
+    }
+    getDetails() {
+        return `${super.getDetails()}, Department: ${this.department}`;
+    }
+}
+const employee = new Employee("John Doe", 33, 43232232, 4);
+console.log(employee.getDetails());
+const manager = new Manager("Bob", 40, 1912393293922, 2, "admin");
+console.log(manager.getDetails());
