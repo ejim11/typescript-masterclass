@@ -53,6 +53,7 @@ let bigInt2 = 232322n;
 // symbols
 let id = Symbol(1234);
 let alphabeticId = Symbol("id");
+console.log("symbol:", id);
 const users = {
     [id]: "1232",
     name: "John",
@@ -341,7 +342,7 @@ async function fetchData(url) {
 }
 async function fetchDefault() {
     const data = await fetchData("https://jsonplaceholder.typicode.com/posts/1");
-    // console.log(data);
+    // console.log("data:-", data);
 }
 async function fetchPost() {
     const data = await fetchData("https://jsonplaceholder.typicode.com/posts/1");
@@ -483,9 +484,9 @@ class SenPerson {
     }
 }
 const john = new SenPerson("John", "Doe");
-// john.age = 34;
+john.age = 34;
 // console.log(john.age);
-// console.log(john.fullname());
+// console.log(john.fullname);
 const loafInitialCount = () => {
     return 10;
 };

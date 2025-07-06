@@ -84,6 +84,8 @@ let bigInt2: bigint = 232322n;
 let id: symbol = Symbol(1234);
 let alphabeticId = Symbol("id");
 
+console.log("symbol:", id);
+
 const users = {
   [id]: "1232",
   name: "John",
@@ -681,6 +683,7 @@ type UnionOfKeysOfEvents = keyof Events;
 
 let idOfEvent: UnionOfKeysOfEvents = "id";
 
+// index signature
 type Numeric = {
   [key: number]: string;
 };
@@ -723,7 +726,7 @@ async function fetchData<T>(url: string): Promise<T> {
 
 async function fetchDefault() {
   const data = await fetchData("https://jsonplaceholder.typicode.com/posts/1");
-  // console.log(data);
+  // console.log("data:-", data);
 }
 
 // fetchDefault();
@@ -749,10 +752,7 @@ type Filter = {
 };
 
 // implementing a polymorphic function
-const filter: Filter = <T>(
-  array: T[],
-  predicate: (item: T) => boolean
-): T[] => {
+const filter = <T>(array: T[], predicate: (item: T) => boolean): T[] => {
   let result: T[] = [];
 
   for (let i = 0; i < array.length; i++) {
@@ -984,11 +984,11 @@ class SenPerson {
 
 const john: SenPerson = new SenPerson("John", "Doe");
 
-// john.age = 34;
+john.age = 34;
 
 // console.log(john.age);
 
-// console.log(john.fullname());
+// console.log(john.fullname);
 
 const loafInitialCount = (): number => {
   return 10;
