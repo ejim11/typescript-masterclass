@@ -431,7 +431,7 @@ class Ebook extends Book {
 const ebook1 = new Ebook(2, "pdf", "Space and time", "Ernesto", "inei493");
 console.log(ebook1);
 // Access modifiers
-// public - anywhere
+// public - anywhere (class, child and instance of the class)
 // proctected - class and child class
 // private - class
 class Device {

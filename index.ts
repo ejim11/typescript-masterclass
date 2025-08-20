@@ -902,7 +902,7 @@ console.log(ebook1);
 
 // Access modifiers
 
-// public - anywhere
+// public - anywhere (class, child and instance of the class)
 // proctected - class and child class
 // private - class
 
