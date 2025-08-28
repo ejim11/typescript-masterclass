@@ -955,7 +955,7 @@ class SenPerson {
     public firstName: string,
     public lastName: string // public age: number
   ) {
-    // wrong method
+    // // wrong method
     // if (age > 200 || age < 0) {
     //   throw new Error("The age must be within the age range 0- 200");
     // }
@@ -1014,6 +1014,7 @@ Counter.increment();
 console.log(Counter.count);
 
 // Generics in classes
+console.log("------Generics in classes-------");
 
 class Box<T> {
   private _value: T;
@@ -1087,6 +1088,7 @@ booksRepo.add({
 // console.log(usersRepo.getById(3));
 
 // Mixins
+console.log("------Mixins-------");
 
 type Constructor = new (...args: any[]) => {};
 
@@ -1119,6 +1121,7 @@ const newUserWithTimestamp = new UserWithTimestamp("Ejim", 40);
 newUserWithTimestamp.displayInfo();
 
 // simple employee management system
+console.log("------Employee management system-------");
 
 class Employee {
   static companyName: string = "Tech Solutions Inc";
@@ -1173,3 +1176,142 @@ console.log(employee.getDetails());
 
 const manager: Manager = new Manager("Bob", 40, 1912393293922, 2, "admin");
 console.log(manager.getDetails());
+
+console.log("-----Abstract classes and Interfaces------");
+// abstract classes
+
+// Note: An abstract class cannot be instantiated directly. It serves as a blueprint for other classes.
+
+// Note: An abstract class can contain both abstract methods (without implementation) and concrete methods (with implementation).
+
+// Note:  abstract members must be implemented in derived classes.
+
+type Holidays = {
+  date: Date;
+  reason: string;
+}[];
+
+abstract class Department {
+  protected abstract holidays: Holidays;
+  protected constructor(protected name: string) {}
+
+  public addHolidays(holidays: Holidays) {
+    if (Array.isArray(holidays)) {
+      for (const holiday of holidays) {
+        this.holidays.push(holiday);
+      }
+    }
+  }
+
+  public abstract printHolidays(): void;
+}
+
+class ITDepartment extends Department {
+  protected holidays: Holidays = [];
+
+  constructor() {
+    super("IT Department");
+  }
+
+  public printHolidays() {
+    if (this.holidays.length === 0) {
+      console.log(`No holidays for ${this.name}`);
+      return;
+    }
+
+    console.log(`Holidays for ${this.name}:`);
+    this.holidays.forEach((holiday, index) => {
+      console.log(
+        `${index + 1}. ${holiday.reason} - ${holiday.date.toDateString()}`
+      );
+    });
+  }
+}
+
+class AdminDepartment extends Department {
+  protected holidays: Holidays = [];
+
+  constructor() {
+    super("Admin Department");
+  }
+
+  public printHolidays() {
+    if (this.holidays.length === 0) {
+      console.log(`No holidays for ${this.name}`);
+      return;
+    }
+
+    console.log(`Holidays for ${this.name}:`);
+    this.holidays.forEach((holiday, index) => {
+      console.log(
+        `${index + 1}. ${holiday.reason} - ${holiday.date.toDateString()}`
+      );
+    });
+  }
+}
+
+const itHolidays: Holidays = [
+  { date: new Date("2023-12-25"), reason: "Christmas" },
+  { date: new Date("2024-01-01"), reason: "New Year" },
+];
+
+const adminHolidays: Holidays = [
+  { date: new Date("2023-11-25"), reason: "Thanksgiving" },
+  { date: new Date("2024-07-04"), reason: "Independence Day" },
+];
+
+const iTDepartment: ITDepartment = new ITDepartment();
+
+const adminDepartment: AdminDepartment = new AdminDepartment();
+
+iTDepartment.addHolidays(itHolidays);
+adminDepartment.addHolidays(adminHolidays);
+
+iTDepartment.printHolidays();
+adminDepartment.printHolidays();
+
+// interfaces
+
+console.log("-----Interfaces------");
+
+interface IUser {
+  userName: string;
+  email: string;
+  login(): void;
+}
+
+class AdminUser implements IUser {
+  constructor(
+    public userName: string,
+    public email: string,
+    public adminLevel: number
+  ) {}
+
+  login(): void {
+    console.log(`${this.userName} has logged in as an admin.`);
+  }
+}
+
+class Customer implements IUser {
+  constructor(public userName: string, public email: string) {}
+
+  login(): void {}
+}
+
+class Auth {
+  private users: IUser[] = [];
+
+  register(user: IUser): void {
+    this.users.push(user);
+    console.log(`${user.userName} has been registered.`);
+  }
+
+  login(userName: string): void {
+    const user = this.users.find((u) => u.userName === userName);
+    if (user) {
+      user.login();
+    } else {
+      console.log(`User ${userName} not found.`);
+    }
+  }
+}

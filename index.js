@@ -461,7 +461,7 @@ class SenPerson {
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
-        // wrong method
+        // // wrong method
         // if (age > 200 || age < 0) {
         //   throw new Error("The age must be within the age range 0- 200");
         // }
@@ -506,6 +506,7 @@ Counter.count = 0;
 Counter.increment();
 console.log(Counter.count);
 // Generics in classes
+console.log("------Generics in classes-------");
 class Box {
     constructor(value) {
         this._value = value;
@@ -548,6 +549,9 @@ booksRepo.add({
     title: "",
     ISBN: 0,
 });
+// console.log(usersRepo.getById(3));
+// Mixins
+console.log("------Mixins-------");
 function TimeStamp(Base) {
     return class extends Base {
         constructor() {
@@ -576,6 +580,7 @@ class UserWithTimestamp extends TimeStamp(MainUser) {
 const newUserWithTimestamp = new UserWithTimestamp("Ejim", 40);
 newUserWithTimestamp.displayInfo();
 // simple employee management system
+console.log("------Employee management system-------");
 class Employee {
     constructor(name, age, _salary, id) {
         this.name = name;
@@ -615,3 +620,99 @@ const employee = new Employee("John Doe", 33, 43232232, 4);
 console.log(employee.getDetails());
 const manager = new Manager("Bob", 40, 1912393293922, 2, "admin");
 console.log(manager.getDetails());
+console.log("-----Abstract classes and Interfaces------");
+class Department {
+    constructor(name) {
+        this.name = name;
+    }
+    addHolidays(holidays) {
+        if (Array.isArray(holidays)) {
+            for (const holiday of holidays) {
+                this.holidays.push(holiday);
+            }
+        }
+    }
+}
+class ITDepartment extends Department {
+    constructor() {
+        super("IT Department");
+        this.holidays = [];
+    }
+    printHolidays() {
+        if (this.holidays.length === 0) {
+            console.log(`No holidays for ${this.name}`);
+            return;
+        }
+        console.log(`Holidays for ${this.name}:`);
+        this.holidays.forEach((holiday, index) => {
+            console.log(`${index + 1}. ${holiday.reason} - ${holiday.date.toDateString()}`);
+        });
+    }
+}
+class AdminDepartment extends Department {
+    constructor() {
+        super("Admin Department");
+        this.holidays = [];
+    }
+    printHolidays() {
+        if (this.holidays.length === 0) {
+            console.log(`No holidays for ${this.name}`);
+            return;
+        }
+        console.log(`Holidays for ${this.name}:`);
+        this.holidays.forEach((holiday, index) => {
+            console.log(`${index + 1}. ${holiday.reason} - ${holiday.date.toDateString()}`);
+        });
+    }
+}
+const itHolidays = [
+    { date: new Date("2023-12-25"), reason: "Christmas" },
+    { date: new Date("2024-01-01"), reason: "New Year" },
+];
+const adminHolidays = [
+    { date: new Date("2023-11-25"), reason: "Thanksgiving" },
+    { date: new Date("2024-07-04"), reason: "Independence Day" },
+];
+const iTDepartment = new ITDepartment();
+const adminDepartment = new AdminDepartment();
+iTDepartment.addHolidays(itHolidays);
+adminDepartment.addHolidays(adminHolidays);
+iTDepartment.printHolidays();
+adminDepartment.printHolidays();
+// interfaces
+console.log("-----Interfaces------");
+class AdminUser {
+    constructor(userName, email, adminLevel) {
+        this.userName = userName;
+        this.email = email;
+        this.adminLevel = adminLevel;
+    }
+    login() {
+        console.log(`${this.userName} has logged in as an admin.`);
+    }
+}
+class Customer {
+    constructor(userName, email) {
+        this.userName = userName;
+        this.email = email;
+    }
+    login() { }
+}
+class Auth {
+    constructor() {
+        this.users = [];
+    }
+    register(user) {
+        this.users.push(user);
+        console.log(`${user.userName} has been registered.`);
+    }
+    login(userName) {
+        const user = this.users.find((u) => u.userName === userName);
+        if (user) {
+            user.login();
+        }
+        else {
+            console.log(`User ${userName} not found.`);
+        }
+    }
+}
