@@ -696,7 +696,9 @@ class Customer {
         this.userName = userName;
         this.email = email;
     }
-    login() { }
+    login() {
+        console.log("Customer is now logged in");
+    }
 }
 class Auth {
     constructor() {
@@ -706,13 +708,148 @@ class Auth {
         this.users.push(user);
         console.log(`${user.userName} has been registered.`);
     }
-    login(userName) {
-        const user = this.users.find((u) => u.userName === userName);
-        if (user) {
-            user.login();
-        }
-        else {
-            console.log(`User ${userName} not found.`);
-        }
+    // static login(userName: string): void {
+    //   const user = this.users.find((u: IUser) => u.userName === userName);
+    //   if (user) {
+    //     user.login();
+    //   } else {
+    //     console.log(`User ${userName} not found.`);
+    //   }
+    // }
+    static login(user) {
+        user.login();
     }
 }
+const adminUser = new AdminUser("Mark", "mark@gmail.com", 1);
+const customer = new Customer("John", "john@gmail.com");
+Auth.login(adminUser);
+Auth.login(customer);
+const person2 = {
+    name: "John",
+    email: "john@gmail.com",
+    age: 43,
+};
+console.log(" ------- extending interfaces ---------");
+const userWithAddress = {
+    address: "Enugu",
+    name: "favour",
+    email: "favour@gmail.com",
+    age: 19,
+};
+console.log(person2);
+console.log(userWithAddress);
+console.log(" ------- Inheriting multiple interfaces ---------");
+(function (Roles) {
+    Roles["admin"] = "admin";
+    Roles["author"] = "author";
+    Roles["editor"] = "editor";
+})(Roles || (Roles = {}));
+var PermissionsList;
+(function (PermissionsList) {
+    PermissionsList["read"] = "read";
+    PermissionsList["write"] = "write";
+    PermissionsList["execute"] = "execute";
+})(PermissionsList || (PermissionsList = {}));
+const rob = {
+    numberOfUsersReporting: 333,
+    name: "rob",
+    email: "rob@gmail.com",
+    age: 43,
+    role: Roles.ADMIN,
+    permissions: [
+        PermissionsList.read,
+        PermissionsList.write,
+        PermissionsList.execute,
+    ],
+};
+console.log(rob);
+console.log(" ------- Interfaces and Generics ---------");
+var AutomobileTypes;
+(function (AutomobileTypes) {
+    AutomobileTypes["car"] = "car";
+    AutomobileTypes["bus"] = "bus";
+    AutomobileTypes["van"] = "van";
+    AutomobileTypes["truck"] = "truck";
+    AutomobileTypes["bike"] = "bike";
+})(AutomobileTypes || (AutomobileTypes = {}));
+var AutomobileBrands;
+(function (AutomobileBrands) {
+    AutomobileBrands["ferrari"] = "ferrari";
+    AutomobileBrands["honda"] = "honda";
+    AutomobileBrands["bmw"] = "bwm";
+    AutomobileBrands["toyota"] = "toyota";
+})(AutomobileBrands || (AutomobileBrands = {}));
+var AutomobileColors;
+(function (AutomobileColors) {
+    AutomobileColors["red"] = "red";
+    AutomobileColors["blue"] = "blue";
+    AutomobileColors["white"] = "white";
+    AutomobileColors["black"] = "black";
+    AutomobileColors["silver"] = "silver";
+})(AutomobileColors || (AutomobileColors = {}));
+const ferrari = {
+    type: AutomobileTypes.car,
+    brand: AutomobileBrands.ferrari,
+    colors: [AutomobileColors.red],
+    description: "La ferrari",
+};
+console.log(ferrari);
+const honda = {
+    type: "car",
+    brand: "Honda",
+    colors: ["blue"],
+    description: "honda",
+};
+console.log(honda);
+const toyota = {
+    type: "car",
+    brand: AutomobileBrands.toyota,
+    colors: [434, 555],
+    description: "toyota",
+};
+console.log(toyota);
+console.log("----- Interfaces with classes --------");
+class Car {
+    constructor(brand, colors, description) {
+        this.brand = brand;
+        this.colors = colors;
+        this.description = description;
+        this.type = "car";
+    }
+}
+const bmw = new Car(AutomobileBrands.bmw, [AutomobileColors.black], "BMW");
+console.log(bmw);
+class Truck {
+    constructor(brand, colors, capacity, licenseRenewalDate, description, driverName) {
+        this.brand = brand;
+        this.colors = colors;
+        this.capacity = capacity;
+        this.licenseRenewalDate = licenseRenewalDate;
+        this.description = description;
+        this.driverName = driverName;
+        this.type = "truck";
+    }
+}
+const toyotaTruck = new Truck(AutomobileBrands.toyota, [AutomobileColors.silver, AutomobileColors.white], "400 Tonnes", new Date(), "toyota truck", "Adams");
+console.log(toyotaTruck);
+// NOTE: Classes can inherit from only one class
+//  NOTE: when a class implement an interface then the properties of the interface should be public properties in the class
+console.log("-------- declaration merging interfaces -------nnn ");
+class MainUser1 {
+    constructor(id, name, password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+}
+console.log("------ diff btw types and interfaces ------");
+const userAndAdmin = { name: "John", isAdmin: true };
+const userAndAdmin2 = { isAdmin: true };
+// Note: only interfaces
+// 1. merging of interfaces with same name
+// 2. extending many interfaces
+// 3. implementation of multuple interfaces
+console.log("------ diff btw abstract classes and interfaces ------");
+// NOte: abstract classes can have implementation of methods that can be inherited by classes while interfaces can only have method signatures
+// Note: classes can implement multiple interfaces but can only inherit from one parent class
+// Note: abstract classes can have static methods but interfaces can't

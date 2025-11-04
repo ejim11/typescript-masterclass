@@ -1295,23 +1295,275 @@ class AdminUser implements IUser {
 class Customer implements IUser {
   constructor(public userName: string, public email: string) {}
 
-  login(): void {}
+  login(): void {
+    console.log("Customer is now logged in");
+  }
 }
 
 class Auth {
   private users: IUser[] = [];
+  static users: any;
 
   register(user: IUser): void {
     this.users.push(user);
     console.log(`${user.userName} has been registered.`);
   }
 
-  login(userName: string): void {
-    const user = this.users.find((u) => u.userName === userName);
-    if (user) {
-      user.login();
-    } else {
-      console.log(`User ${userName} not found.`);
-    }
+  // static login(userName: string): void {
+  //   const user = this.users.find((u: IUser) => u.userName === userName);
+  //   if (user) {
+  //     user.login();
+  //   } else {
+  //     console.log(`User ${userName} not found.`);
+  //   }
+  // }
+
+  static login(user: IUser) {
+    user.login();
   }
 }
+
+const adminUser: AdminUser = new AdminUser("Mark", "mark@gmail.com", 1);
+
+const customer: Customer = new Customer("John", "john@gmail.com");
+
+Auth.login(adminUser);
+
+Auth.login(customer);
+
+interface IPerson {
+  name: string;
+  email: string;
+  age: number;
+  gender?: string;
+  phone?: number;
+  greet?: () => void;
+}
+
+const person2: IPerson = {
+  name: "John",
+  email: "john@gmail.com",
+  age: 43,
+};
+
+console.log(" ------- extending interfaces ---------");
+
+interface IUserWithAddress extends IPerson {
+  address: string;
+}
+const userWithAddress: IUserWithAddress = {
+  address: "Enugu",
+  name: "favour",
+  email: "favour@gmail.com",
+  age: 19,
+};
+
+console.log(person2);
+console.log(userWithAddress);
+
+console.log(" ------- Inheriting multiple interfaces ---------");
+
+enum Roles {
+  admin = "admin",
+  author = "author",
+  editor = "editor",
+}
+
+enum PermissionsList {
+  read = "read",
+  write = "write",
+  execute = "execute",
+}
+
+interface IRole {
+  role: Roles;
+}
+
+interface IUserPermissions {
+  permissions: PermissionsList[];
+}
+
+interface IAdminUser extends IPerson, IRole, IUserPermissions {
+  numberOfUsersReporting: number;
+}
+
+const rob: IAdminUser = {
+  numberOfUsersReporting: 333,
+  name: "rob",
+  email: "rob@gmail.com",
+  age: 43,
+  role: Roles.ADMIN,
+  permissions: [
+    PermissionsList.read,
+    PermissionsList.write,
+    PermissionsList.execute,
+  ],
+};
+
+console.log(rob);
+
+console.log(" ------- Interfaces and Generics ---------");
+
+enum AutomobileTypes {
+  car = "car",
+  bus = "bus",
+  van = "van",
+  truck = "truck",
+  bike = "bike",
+}
+
+enum AutomobileBrands {
+  ferrari = "ferrari",
+  honda = "honda",
+  bmw = "bwm",
+  toyota = "toyota",
+}
+
+enum AutomobileColors {
+  red = "red",
+  blue = "blue",
+  white = "white",
+  black = "black",
+  silver = "silver",
+}
+
+interface IAutomobile<Type, Brand, Colors> {
+  type: Type;
+  brand: Brand;
+  colors: Colors[];
+  description: string;
+}
+
+const ferrari: IAutomobile<
+  AutomobileTypes,
+  AutomobileBrands,
+  AutomobileColors
+> = {
+  type: AutomobileTypes.car,
+  brand: AutomobileBrands.ferrari,
+  colors: [AutomobileColors.red],
+  description: "La ferrari",
+};
+
+console.log(ferrari);
+
+const honda: IAutomobile<string, string, string> = {
+  type: "car",
+  brand: "Honda",
+  colors: ["blue"],
+  description: "honda",
+};
+
+console.log(honda);
+
+const toyota: IAutomobile<string, AutomobileBrands, number> = {
+  type: "car",
+  brand: AutomobileBrands.toyota,
+  colors: [434, 555],
+  description: "toyota",
+};
+
+console.log(toyota);
+
+console.log("----- Interfaces with classes --------");
+
+class Car implements IAutomobile<string, AutomobileBrands, AutomobileColors> {
+  type: string = "car";
+
+  constructor(
+    public brand: AutomobileBrands,
+    public colors: AutomobileColors[],
+    public description: string
+  ) {}
+}
+
+const bmw: Car = new Car(AutomobileBrands.bmw, [AutomobileColors.black], "BMW");
+
+console.log(bmw);
+
+interface ICommercialVehicle {
+  capacity: string;
+  licenseRenewalDate: Date;
+}
+
+class Truck
+  implements
+    IAutomobile<string, AutomobileBrands, AutomobileColors>,
+    ICommercialVehicle
+{
+  type: string = "truck";
+
+  constructor(
+    public brand: AutomobileBrands,
+    public colors: AutomobileColors[],
+    public capacity: string,
+    public licenseRenewalDate: Date,
+    public description: string,
+    private driverName: string
+  ) {}
+}
+
+const toyotaTruck: Truck = new Truck(
+  AutomobileBrands.toyota,
+  [AutomobileColors.silver, AutomobileColors.white],
+  "400 Tonnes",
+  new Date(),
+  "toyota truck",
+  "Adams"
+);
+
+console.log(toyotaTruck);
+
+// NOTE: Classes can inherit from only one class
+
+//  NOTE: when a class implement an interface then the properties of the interface should be public properties in the class
+
+console.log("-------- declaration merging interfaces -------nnn ");
+
+interface IMainUser {
+  id: number;
+  name: string;
+}
+
+interface IMainUser {
+  password: string;
+}
+
+class MainUser1 implements IMainUser {
+  constructor(
+    public id: number,
+    public name: string,
+    public password: string
+  ) {}
+}
+
+console.log("------ diff btw types and interfaces ------");
+
+//NOTE:  what can be done with only types
+
+type UserMain = {
+  name: string;
+};
+
+type AdminUserMain = { isAdmin: boolean };
+
+const userAndAdmin: UserMain & AdminUserMain = { name: "John", isAdmin: true };
+
+const userAndAdmin2: UserMain | AdminUserMain = { isAdmin: true };
+
+// tuplest
+type ResponseTuple = [string, number];
+
+// Note: only interfaces
+
+// 1. merging of interfaces with same name
+// 2. extending many interfaces
+// 3. implementation of multuple interfaces
+
+console.log("------ diff btw abstract classes and interfaces ------");
+
+// NOte: abstract classes can have implementation of methods that can be inherited by classes while interfaces can only have method signatures
+
+// Note: classes can implement multiple interfaces but can only inherit from one parent class
+
+// Note: abstract classes can have static methods but interfaces can't
